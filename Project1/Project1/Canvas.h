@@ -7,17 +7,18 @@ class Tile
 {
 public:
 	Tile();
+	Tile(size_t x, size_t y);
+	Tile(size_t x, size_t y, char value);
 
 	void setMarked(int newValue);
 	int getValue();
-
-	ostream& operator<<(ostream& out);
+	void setValue(char value);
 
 private:
-	int x;
-	int y;
-	int value;
-	int markedValue;
+	size_t x;
+	size_t y;
+	char value; //range from 0-8 or B
+	char markedValue = '*';
 };
 
 class Canvas
@@ -29,18 +30,22 @@ public:
 	Canvas(int width, int length, int numOfBombs);
 	Canvas(const Canvas&);
 
-	Canvas& operator=(const Canvas&); //assignment operator
+	Canvas& operator=(const Canvas& c); //assignment operator
 
 	~Canvas();
 
 private:
 	int width;
 	int length;
-
-	int ** board; //Should this be Tile ** board;?
-
 	int numOfBombs;
+	void initialize();
+
+	Tile ** board; //Should this be Tile ** board;?
+
+	
 };
 
+
+std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas);
 
 #endif // !canvas.h
