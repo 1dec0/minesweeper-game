@@ -15,7 +15,15 @@ int main()
 	}
 	char a = '0';
 	char b = a + 1;
-	cout << "a = " << a << ", b = " << b << '\n';*/
+	cout << "a = " << a << ", b = " << b << '\n';
+
+	int x = 10;
+	bool left = x - 1 >= 0;
+
+	cout << "x = " << x << ", left = " << left << '\n';*/
+
+
+
 
 	system("pause");
 	return 0;

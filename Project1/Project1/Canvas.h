@@ -32,6 +32,8 @@ public:
 
 	Canvas& operator=(const Canvas& c); //assignment operator
 
+	std::ostream& operator<<(const Canvas& myCanvas);
+
 	~Canvas();
 
 private:
@@ -46,6 +48,5 @@ private:
 };
 
 
-std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas);
 
 #endif // !canvas.h

@@ -4,19 +4,19 @@
 
 using namespace std;
 
-Tile::Tile()
+Tile::Tile() //This should never be used
 {
 	x = y = value = 0;
 }
 
-Tile::Tile(size_t x, size_t y)
+Tile::Tile(size_t x, size_t y) //Used as a default for ALL tiles
 {
 	this->x = x;
 	this->y = y;
 	this->value = 0;
 }
 
-Tile::Tile(size_t x, size_t y, char value)
+Tile::Tile(size_t x, size_t y, char value) //Probably won't be used, can probably be deleted
 {
 	this->x = x;
 	this->y = y;
@@ -111,43 +111,50 @@ void Canvas::initialize()
 		}
 
 		//update surrounding tiles
-		if (x - 1 > 0 && board[x - 1][y].getValue() != 'B') //left
+
+		bool left = x - 1 >= 0;
+		bool right = x + 1 < width;
+		bool up = y - 1 >= 0;
+		bool down = y + 1 < length;
+
+
+		if (left && board[x - 1][y].getValue() != 'B') //left
 		{
 			board[x - 1][y].setValue(board[x - 1][y].getValue() + 1);
 		}
-		if (y - 1 > 0 && board[x][y - 1].getValue() != 'B') //up
+		if (up && board[x][y - 1].getValue() != 'B') //up
 		{
 			board[x][y - 1].setValue(board[x][y - 1].getValue() + 1);
 		}
-		if (x - 1 > 0 && y - 1 > 0 && board[x - 1][y - 1].getValue() != 'B') //up-left
+		if (up && left && board[x - 1][y - 1].getValue() != 'B') //up-left
 		{
 			board[x - 1][y - 1].setValue(board[x - 1][y - 1].getValue() + 1);
 		}
-		if (x + 1 < width && board[x + 1][y].getValue() != 'B') //right
+		if (right && board[x + 1][y].getValue() != 'B') //right
 		{
 			board[x + 1][y].setValue(board[x + 1][y].getValue() + 1);
 		}
-		if (x + 1 < width && y + 1 < length && board[x + 1][y + 1].getValue() != 'B') //right-down
+		if (right && down && board[x + 1][y + 1].getValue() != 'B') //right-down
 		{
 			board[x + 1][y + 1].setValue(board[x + 1][y + 1].getValue() + 1);
 		}
-		if (x - 1 > 0 && board[x - 1][y].getValue() != 'B')
+		if (left && down && board[x - 1][y + 1].getValue() != 'B') //left-down
 		{
-			board[x - 1][y].setValue(board[x - 1][y].getValue() + 1);
+			board[x - 1][y + 1].setValue(board[x - 1][y + 1].getValue() + 1);
 		}
-		if (x - 1 > 0 && board[x - 1][y].getValue() != 'B')
+		if (down && board[x][y + 1].getValue() != 'B') //down
 		{
-			board[x - 1][y].setValue(board[x - 1][y].getValue() + 1);
+			board[x][y + 1].setValue(board[x][y + 1].getValue() + 1);
 		}
-		if (x - 1 > 0 && board[x - 1][y].getValue() != 'B')
+		if (right && up && board[x - 1][y + 1].getValue() != 'B') //right-up?
 		{
-			board[x - 1][y].setValue(board[x - 1][y].getValue() + 1);
+			board[x - 1][y + 1].setValue(board[x - 1][y + 1].getValue() + 1);
 		}
 	}
 }
 
-ostream& operator<<(ostream& out, const Canvas& myCanvas)
+ostream& Canvas::operator<<(const Canvas& myCanvas)
 {
 	// TODO: insert return statement here
-	return out;
+	return cout;
 }
