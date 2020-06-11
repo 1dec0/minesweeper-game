@@ -11,7 +11,7 @@ public:
 	Tile(size_t x, size_t y, char value);
 
 	void setMarked(int newValue);
-	int getValue();
+	char getValue();
 	void setValue(char value);
 
 private:
@@ -25,21 +25,21 @@ class Canvas
 {
 public:
 	Canvas();
-	Canvas(int numOfBombs);
-	Canvas(int width, int length);
-	Canvas(int width, int length, int numOfBombs);
+	Canvas(size_t numOfBombs);
+	Canvas(size_t width, size_t length);
+	Canvas(size_t width, size_t length, size_t numOfBombs);
 	Canvas(const Canvas&);
 
-	Canvas& operator=(const Canvas& c); //assignment operator
+	friend std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas);
 
-	std::ostream& operator<<(const Canvas& myCanvas);
+	Canvas& operator=(const Canvas& c); //assignment operator
 
 	~Canvas();
 
 private:
-	int width;
-	int length;
-	int numOfBombs;
+	size_t width;
+	size_t length;
+	size_t numOfBombs;
 	void initialize();
 
 	Tile ** board; //Should this be Tile ** board;?

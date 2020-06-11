@@ -28,7 +28,7 @@ void Tile::setMarked(int newValue)
 	this->markedValue = newValue;
 }
 
-int Tile::getValue()
+char Tile::getValue()
 {
 	return value;
 }
@@ -37,6 +37,12 @@ void Tile::setValue(char value)
 {
 	this->value = value;
 }
+
+
+
+//-------------------------------------------------------------------
+
+
 
 Canvas::Canvas()
 {
@@ -47,52 +53,67 @@ Canvas::Canvas()
 	initialize();
 }
 
-Canvas::Canvas(int numOfBombs)
+Canvas::Canvas(size_t numOfBombs)
 {
-	this->width = 0;
-	this->length = 0;
-	this->numOfBombs = 0;
+	this->width = 10;
+	this->length = 10;
+	this->numOfBombs = numOfBombs;
+
+	initialize();
 }
 
-Canvas::Canvas(int width, int length)
+Canvas::Canvas(size_t width, size_t length)
 {
-	this->width = 0;
-	this->length = 0;
-	this->numOfBombs = 0;
+	this->width = width;
+	this->length = length;
+	this->numOfBombs = 10;
+
+	initialize();
 }
 
-Canvas::Canvas(int width, int length, int numOfBombs)
+Canvas::Canvas(size_t width, size_t length, size_t numOfBombs)
 {
-	this->width = 0;
-	this->length = 0;
-	this->numOfBombs = 0;
+	this->width = width;
+	this->length = length;
+	this->numOfBombs = numOfBombs;
+
+	initialize();
 }
 
-Canvas::Canvas(const Canvas&)
+Canvas::Canvas(const Canvas& other)
 {
-	this->width = 0;
-	this->length = 0;
-	this->numOfBombs = 0;
+	this->width = other.width;
+	this->length = other.length;
+	this->numOfBombs = other.numOfBombs;
+
+	initialize();
 }
 
-Canvas& Canvas::operator=(const Canvas& c)
+Canvas& Canvas::operator=(const Canvas& c) //Not finished
 {
 	// TODO: insert return statement here
 	return *this;
 }
 
-Canvas::~Canvas()
+Canvas::~Canvas() //Not finished
 {
+	for (size_t i = 0; i < length; ++i)
+	{
+		delete[] board[i];	
+	}
+	delete[] board;
 }
 
 void Canvas::initialize()
 {
 	//initialize board;
+	//Tile * board = new Tile[length][width];
+
 	for (size_t i = 0; i < width; ++i)
 	{
 		for (size_t j = 0; j < length; ++j)
 		{
-			board[i][j] = Tile(i, j);
+			board[i][j] = Tile(i, j); //new Tile(i, j);???
 		}
 	}
 
@@ -101,8 +122,8 @@ void Canvas::initialize()
 
 	while (assignedBombs < numOfBombs)
 	{
-		int x = rand() % 10;
-		int y = rand() % 10;
+		size_t x = size_t(rand() % 10);
+		size_t y = size_t(rand() % 10);
 
 		if (board[x][y].getValue() != 'B')
 		{
@@ -153,8 +174,12 @@ void Canvas::initialize()
 	}
 }
 
-ostream& Canvas::operator<<(const Canvas& myCanvas)
+std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas) //Not finished
 {
-	// TODO: insert return statement here
-	return cout;
+	//out << string(myCanvas.width, '_') << '\n'; //border
+	out << "test";
+
+
+
+	return out;
 }

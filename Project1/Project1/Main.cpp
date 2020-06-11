@@ -1,5 +1,6 @@
 #include <iostream>
 #include <iomanip>
+#include "Canvas.h"
 
 using namespace std;
 
@@ -22,7 +23,10 @@ int main()
 
 	cout << "x = " << x << ", left = " << left << '\n';*/
 
+	//Canvas myCanvas(10);
+	//Canvas mySecondCanvas(myCanvas);
 
+	//cout << myCanvas << endl;
 
 
 	system("pause");
