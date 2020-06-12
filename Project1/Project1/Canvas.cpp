@@ -107,7 +107,15 @@ Canvas::~Canvas() //Not finished
 void Canvas::initialize()
 {
 	//initialize board;
-	//Tile * board = new Tile[length][width];
+
+	board = new Tile * [length];
+
+	for (size_t i = 0; i < length; ++i)
+	{
+		board[i] = new Tile[width];
+	}
+
+	//Tile board = new Tile
 
 	for (size_t i = 0; i < width; ++i)
 	{

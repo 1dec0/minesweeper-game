@@ -42,7 +42,7 @@ private:
 	size_t numOfBombs;
 	void initialize();
 
-	Tile ** board; //Should this be Tile ** board;?
+	Tile ** board;
 
 	
 };
