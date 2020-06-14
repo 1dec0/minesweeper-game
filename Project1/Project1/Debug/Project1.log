@@ -1,4 +1,6 @@
 ﻿  Canvas.cpp
-C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(144,23): warning C4018: '<': signed/unsigned mismatch
-C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(146,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(163,23): warning C4018: '<': signed/unsigned mismatch
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(165,22): warning C4018: '<': signed/unsigned mismatch
+  Main.cpp
+  Generating Code...
   Project1.vcxproj -> C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Debug\Project1.exe

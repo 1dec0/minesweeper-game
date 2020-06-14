@@ -81,7 +81,7 @@ Canvas::Canvas(size_t width, size_t length, size_t numOfBombs)
 	initialize();
 }
 
-Canvas::Canvas(const Canvas& other)
+Canvas::Canvas(const Canvas& other) //not done, initialize has to be done differently
 {
 	this->width = other.width;
 	this->length = other.length;
@@ -90,13 +90,39 @@ Canvas::Canvas(const Canvas& other)
 	initialize();
 }
 
-Canvas& Canvas::operator=(const Canvas& c) //Not finished
+Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized better, go look at other code
 {
-	// TODO: insert return statement here
+	for (size_t i = 0; i < length; ++i)
+	{
+		delete[] board[i]; //This
+		//board[i] = nullptr;
+	}
+	delete[] board;
+
+	this->length = c.length;
+	this->width = c.width;
+	this->numOfBombs = c.numOfBombs;
+
+	this->board = new Tile*[length];
+	for (size_t i = 0; i < length; ++i)
+	{
+		board[i] = new Tile[width];
+	}
+
+	for (size_t i = 0; i < length; ++i)
+	{
+		for (size_t j = 0; j < width; ++j)
+		{
+			this->board[i][j] = c.board[i][j];
+			//cout << this->board[i][j].getValue() << c.board[i][j].getValue();
+		}
+	}
+
+
 	return *this;
 }
 
-Canvas::~Canvas() //Not finished
+Canvas::~Canvas() //Finished
 {
 	for (size_t i = 0; i < length; ++i)
 	{
@@ -140,11 +166,10 @@ void Canvas::initialize()
 
 			//update surrounding tiles
 
-			bool left = x - 1 >= 0;
+			bool left = x >= 1;
 			bool right = x + 1 < width;
-			bool up = y - 1 >= 0;
+			bool up = y >= 1;
 			bool down = y + 1 < length;
-
 
 			if (left && board[x - 1][y].getValue() != 'B') //left
 			{

@@ -29,9 +29,15 @@ int main()
 
 	cout << myCanvas << endl;
 
-	/*Canvas secondCanvas;
+	Canvas secondCanvas;
+	secondCanvas = myCanvas;
 
-	cout << secondCanvas << endl;*/
+	cout << secondCanvas << endl;
+
+	Tile firstTile(1, 2, '3');
+	Tile secondTile = firstTile;
+
+	cout << firstTile.getValue() << secondTile.getValue() << endl;
 
 	system("pause");
 	return 0;
