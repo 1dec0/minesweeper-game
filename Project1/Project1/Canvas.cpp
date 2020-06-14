@@ -6,14 +6,15 @@ using namespace std;
 
 Tile::Tile() //This should never be used
 {
-	x = y = value = 0;
+	x = y = 0;
+	value = '0';
 }
 
 Tile::Tile(size_t x, size_t y) //Used as a default for ALL tiles
 {
 	this->x = x;
 	this->y = y;
-	this->value = 0;
+	this->value = '0';
 }
 
 Tile::Tile(size_t x, size_t y, char value) //Probably won't be used, can probably be deleted
@@ -99,15 +100,15 @@ Canvas::~Canvas() //Not finished
 {
 	for (size_t i = 0; i < length; ++i)
 	{
-		delete[] board[i];	
+		delete[] board[i]; //This
+		//board[i] = nullptr;
 	}
 	delete[] board;
+	//board = nullptr;/**/
 }
 
 void Canvas::initialize()
 {
-	//initialize board;
-
 	board = new Tile * [length];
 
 	for (size_t i = 0; i < length; ++i)
@@ -115,9 +116,7 @@ void Canvas::initialize()
 		board[i] = new Tile[width];
 	}
 
-	//Tile board = new Tile
-
-	for (size_t i = 0; i < width; ++i)
+	for (size_t i = 0; i < width; ++i) //useless code???
 	{
 		for (size_t j = 0; j < length; ++j)
 		{
@@ -130,64 +129,90 @@ void Canvas::initialize()
 
 	while (assignedBombs < numOfBombs)
 	{
-		size_t x = size_t(rand() % 10);
-		size_t y = size_t(rand() % 10);
+		int x = int(rand() % length);
+		int y = int(rand() % width);
 
 		if (board[x][y].getValue() != 'B')
 		{
 			++assignedBombs;
 			board[x][y].setValue('B');
-		}
-
-		//update surrounding tiles
-
-		bool left = x - 1 >= 0;
-		bool right = x + 1 < width;
-		bool up = y - 1 >= 0;
-		bool down = y + 1 < length;
 
 
-		if (left && board[x - 1][y].getValue() != 'B') //left
-		{
-			board[x - 1][y].setValue(board[x - 1][y].getValue() + 1);
-		}
-		if (up && board[x][y - 1].getValue() != 'B') //up
-		{
-			board[x][y - 1].setValue(board[x][y - 1].getValue() + 1);
-		}
-		if (up && left && board[x - 1][y - 1].getValue() != 'B') //up-left
-		{
-			board[x - 1][y - 1].setValue(board[x - 1][y - 1].getValue() + 1);
-		}
-		if (right && board[x + 1][y].getValue() != 'B') //right
-		{
-			board[x + 1][y].setValue(board[x + 1][y].getValue() + 1);
-		}
-		if (right && down && board[x + 1][y + 1].getValue() != 'B') //right-down
-		{
-			board[x + 1][y + 1].setValue(board[x + 1][y + 1].getValue() + 1);
-		}
-		if (left && down && board[x - 1][y + 1].getValue() != 'B') //left-down
-		{
-			board[x - 1][y + 1].setValue(board[x - 1][y + 1].getValue() + 1);
-		}
-		if (down && board[x][y + 1].getValue() != 'B') //down
-		{
-			board[x][y + 1].setValue(board[x][y + 1].getValue() + 1);
-		}
-		if (right && up && board[x - 1][y + 1].getValue() != 'B') //right-up?
-		{
-			board[x - 1][y + 1].setValue(board[x - 1][y + 1].getValue() + 1);
+			//update surrounding tiles
+
+			bool left = x - 1 >= 0;
+			bool right = x + 1 < width;
+			bool up = y - 1 >= 0;
+			bool down = y + 1 < length;
+
+
+			if (left && board[x - 1][y].getValue() != 'B') //left
+			{
+				//cout << "left" << endl;
+				board[x - 1][y].setValue(board[x - 1][y].getValue() + 1);
+				//cout << *this;
+			}
+			if (up && board[x][y - 1].getValue() != 'B') //up
+			{
+				//cout << "up" << endl;
+				board[x][y - 1].setValue(board[x][y - 1].getValue() + 1);
+				//cout << *this;
+			}
+			if (up && left && board[x - 1][y - 1].getValue() != 'B') //up-left
+			{
+				//cout << "up-left" << endl;
+				board[x - 1][y - 1].setValue(board[x - 1][y - 1].getValue() + 1);
+				//cout << *this;
+			}
+			if (right && board[x + 1][y].getValue() != 'B') //right
+			{
+				//cout << "right" << endl;
+				board[x + 1][y].setValue(board[x + 1][y].getValue() + 1);
+				//cout << *this;
+			}
+			if (right && down && board[x + 1][y + 1].getValue() != 'B') //right-down
+			{
+				//cout << "right-down" << endl;
+				board[x + 1][y + 1].setValue(board[x + 1][y + 1].getValue() + 1);
+				//cout << *this;
+			}
+			if (left && down && board[x - 1][y + 1].getValue() != 'B') //left-down
+			{
+				//cout << "left-down" << endl;
+				board[x - 1][y + 1].setValue(board[x - 1][y + 1].getValue() + 1);
+				//cout << *this;
+			}
+			if (down && board[x][y + 1].getValue() != 'B') //down
+			{
+				//cout << "left" << endl;
+				board[x][y + 1].setValue(board[x][y + 1].getValue() + 1);
+				//cout << *this;
+			}
+			if (right && up && board[x + 1][y - 1].getValue() != 'B') //right-up?
+			{
+				//cout << "right-up" << endl;
+				board[x + 1][y - 1].setValue(board[x + 1][y - 1].getValue() + 1);
+				//cout << *this;
+			}
 		}
 	}
 }
 
-std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas) //Not finished
+std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas) //Finished
 {
-	//out << string(myCanvas.width, '_') << '\n'; //border
-	out << "test";
+	out << string(myCanvas.width * 2 + 1, '=') << '\n'; //border
+	//out << "test";
+	for (size_t i = 0; i < myCanvas.length; ++i)
+	{
+		out << ' ';
+		for (size_t j = 0; j < myCanvas.width; ++j)
+		{
+			out << myCanvas.board[i][j].getValue() << ' ';
+		}
+		out << '\n';
+	}
 
-
+	out << string(myCanvas.width * 2 + 1, '=') << '\n'; //border
 
 	return out;
 }

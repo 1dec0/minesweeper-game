@@ -6,14 +6,15 @@ using namespace std;
 
 int main()
 {
-	/*int counter = 0;
+	int counter = 0;
 	int result = 0;
-	while (counter < 100 && result != 10)
+	/*while (counter < 100 && result != 10)
 	{
 		result = rand() % 10;
 		cout << result << endl;
 		++counter;
 	}
+	/*
 	char a = '0';
 	char b = a + 1;
 	cout << "a = " << a << ", b = " << b << '\n';
@@ -23,11 +24,14 @@ int main()
 
 	cout << "x = " << x << ", left = " << left << '\n';*/
 
-	//Canvas myCanvas(10);
+	Canvas myCanvas;
 	//Canvas mySecondCanvas(myCanvas);
 
-	//cout << myCanvas << endl;
+	cout << myCanvas << endl;
 
+	/*Canvas secondCanvas;
+
+	cout << secondCanvas << endl;*/
 
 	system("pause");
 	return 0;
