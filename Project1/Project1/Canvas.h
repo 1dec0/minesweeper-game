@@ -11,14 +11,17 @@ public:
 	Tile(size_t x, size_t y, char value);
 
 	void setMarked(int newValue);
+	char getMarked();
 	char getValue();
 	void setValue(char value);
+	void flip();
 
 private:
 	size_t x;
 	size_t y;
 	char value; //range from 0-8 or B
 	char markedValue = '*';
+	bool flipped = false;
 };
 
 class Canvas
@@ -34,6 +37,8 @@ public:
 
 	Canvas& operator=(const Canvas& c); //assignment operator
 
+	void flipTile(int x, int y);
+
 	~Canvas();
 
 private:
@@ -43,7 +48,7 @@ private:
 	void initialize();
 
 	Tile ** board;
-
+	bool activeGame = true;
 	
 };
 

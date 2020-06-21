@@ -29,6 +29,11 @@ void Tile::setMarked(int newValue)
 	this->markedValue = newValue;
 }
 
+char Tile::getMarked()
+{
+	return markedValue;
+}
+
 char Tile::getValue()
 {
 	return value;
@@ -37,6 +42,11 @@ char Tile::getValue()
 void Tile::setValue(char value)
 {
 	this->value = value;
+}
+
+void Tile::flip()
+{
+	flipped = true;
 }
 
 
@@ -87,7 +97,16 @@ Canvas::Canvas(const Canvas& other) //not done, initialize has to be done differ
 	this->length = other.length;
 	this->numOfBombs = other.numOfBombs;
 
-	initialize();
+	//Different Initialization
+	board = new Tile * [length];
+	for (size_t i = 0; i < length; ++i)
+	{
+		board[i] = new Tile[width];
+		for (size_t j = 0; j < width; ++j)
+		{
+			board[i][j] = other.board[i][j];
+		}
+	}
 }
 
 Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized better, go look at other code
@@ -120,6 +139,27 @@ Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized
 
 
 	return *this;
+}
+
+void Canvas::flipTile(int x, int y)
+{
+	if (activeGame)
+	{
+		if (board[x][y].getMarked() == '*')
+		{
+			board[x][y].setMarked(board[x][y].getValue());
+			board[x][y].flip();
+			if (board[x][y].getValue() == 'B')
+			{
+				cout << "Game Over" << endl;
+				activeGame = false;
+			}
+		}
+		else
+		{
+			cout << "This Tile is already flipped" << endl;
+		}
+	}
 }
 
 Canvas::~Canvas() //Finished
