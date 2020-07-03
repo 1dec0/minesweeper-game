@@ -39,9 +39,19 @@ int main()
 
 	cout << firstTile.getValue() << secondTile.getValue() << endl;*/
 
-	Canvas myCanvas;
-	Canvas secondCanvas(myCanvas);
-	cout << myCanvas << secondCanvas;
+	//Canvas myCanvas;
+	//Canvas secondCanvas(myCanvas);
+	//cout << myCanvas << secondCanvas;
+
+	Game newGame;
+	newGame.markAsBomb(0, 0);
+	for (size_t i = 0; i < 10; ++i)
+	{
+		for (size_t j = 0; j < 10; ++j)
+		{
+			newGame.selectTile(i, j);
+		}
+	}
 
 
 

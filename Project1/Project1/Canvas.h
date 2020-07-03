@@ -6,20 +6,18 @@
 class Tile
 {
 public:
-	Tile();
-	Tile(size_t x, size_t y);
-	Tile(size_t x, size_t y, char value);
+	Tile() {} //default, no values changed
+	Tile(char value);
 
-	void setMarked(int newValue);
+	void setMarked(char newValue);
 	char getMarked();
 	char getValue();
 	void setValue(char value);
-	void flip();
+	char flip();
+	char getFlipped();
 
 private:
-	size_t x;
-	size_t y;
-	char value; //range from 0-8 or B
+	char value = '0'; //range from 0-8 or B
 	char markedValue = '*';
 	bool flipped = false;
 };
@@ -37,21 +35,36 @@ public:
 
 	Canvas& operator=(const Canvas& c); //assignment operator
 
-	void flipTile(int x, int y);
+	char flipTile(int x, int y);
+	bool checkTileFlipped(int x, int y);
+	void markTileBomb(int x, int y);
 
 	~Canvas();
 
 private:
+	void initialize();
+
 	size_t width;
 	size_t length;
 	size_t numOfBombs;
-	void initialize();
-
-	Tile ** board;
-	bool activeGame = true;
 	
+	Tile ** board;	
 };
 
+class Game
+{
+public:
+	Game();
+	Game(size_t numOfBombs);
+	Game(size_t width, size_t length);
+	Game(size_t width, size_t length, size_t numOfBombs);
 
+	void selectTile(size_t x, size_t y);
+	void markAsBomb(size_t x, size_t y);
+
+private:
+	Canvas myCanvas;
+	bool activeGame = true;
+};
 
 #endif // !canvas.h
