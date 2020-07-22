@@ -102,11 +102,11 @@ Canvas::Canvas(const Canvas& other) //done
 	this->numOfBombs = other.numOfBombs;
 
 	//Different Initialization
-	board = new Tile * [length];
-	for (size_t i = 0; i < length; ++i)
+	board = new Tile * [width];
+	for (size_t i = 0; i < width; ++i)
 	{
-		board[i] = new Tile[width];
-		for (size_t j = 0; j < width; ++j)
+		board[i] = new Tile[length];
+		for (size_t j = 0; j < length; ++j)
 		{
 			board[i][j] = other.board[i][j];
 		}
@@ -115,7 +115,7 @@ Canvas::Canvas(const Canvas& other) //done
 
 Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized better, go look at other code
 {
-	for (size_t i = 0; i < length; ++i)
+	for (size_t i = 0; i < width; ++i)
 	{
 		delete[] board[i]; //This
 		//board[i] = nullptr;
@@ -126,15 +126,15 @@ Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized
 	this->width = c.width;
 	this->numOfBombs = c.numOfBombs;
 
-	this->board = new Tile*[length];
-	for (size_t i = 0; i < length; ++i)
+	this->board = new Tile*[width];
+	for (size_t i = 0; i < width; ++i)
 	{
-		board[i] = new Tile[width];
+		board[i] = new Tile[length];
 	}
 
-	for (size_t i = 0; i < length; ++i)
+	for (size_t i = 0; i < width; ++i)
 	{
-		for (size_t j = 0; j < width; ++j)
+		for (size_t j = 0; j < length; ++j)
 		{
 			this->board[i][j] = c.board[i][j];
 			//cout << this->board[i][j].getValue() << c.board[i][j].getValue();
@@ -152,6 +152,7 @@ Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized
 char Canvas::flipTile(int x, int y)
 {	
 	 char value = board[x][y].flip();
+	 ++flippedTiles;
 
 	 //cout << "x, y, width, legnth: " << x << y << width << length << '\n';
 
@@ -185,12 +186,12 @@ bool Canvas::checkTileFlipped(int x, int y)
 
 void Canvas::markTileBomb(int x, int y)
 {
-	board[x][y].setMarked('B');
+	board[x][y].setMarked('b');
 }
 
 Canvas::~Canvas() //Finished
 {
-	for (size_t i = 0; i < length; ++i)
+	for (size_t i = 0; i < width; ++i)
 	{
 		delete[] board[i]; //This
 		//board[i] = nullptr;
@@ -201,11 +202,11 @@ Canvas::~Canvas() //Finished
 
 void Canvas::initialize() //helper function for constructors
 {
-	board = new Tile * [length];
+	board = new Tile * [width];
 
-	for (size_t i = 0; i < length; ++i)
+	for (size_t i = 0; i < width; ++i)
 	{
-		board[i] = new Tile[width]; //defaulted with value=0
+		board[i] = new Tile[length]; //defaulted with value=0
 	}
 
 	//cout << *this; //temporary
@@ -219,13 +220,19 @@ void Canvas::initialize() //helper function for constructors
 	}*/
 
 	size_t tiles = length * width;
+	if (numOfBombs >= tiles)
+	{
+		cerr << "Too many bombs to fit on the board, numOfBombs has been set to 33% of the board." << endl;
+		numOfBombs = tiles / 3;
+	}
+
 	size_t assignedBombs = 0;
 
 	srand(time(NULL));
 	while (assignedBombs < numOfBombs)
 	{
-		int x = int(rand() % length);
-		int y = int(rand() % width);
+		int x = int(rand() % width);
+		int y = int(rand() % length);
 
 		//cout << "Current x & y" << x << ' ' << y << endl;
 
@@ -304,7 +311,7 @@ std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas) //Finished
 		for (size_t j = 0; j < myCanvas.width; ++j)
 		{
 			//out << myCanvas.board[i][j].getValue() << ' '; //for testing
-			out << myCanvas.board[i][j].getMarked() << ' ';
+			out << myCanvas.board[j][i].getMarked() << ' ';
 		}
 		out << '\n';
 	}
@@ -314,25 +321,31 @@ std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas) //Finished
 	return out;
 }
 
+std::ostream& operator<<(std::ostream& out, const Game& myGame)
+{
+	out << myGame.myCanvas;
+	return out;
+}
+
 
 //-------------------------------------------------------------------
 
 
 Game::Game()
 {
-	cout << myCanvas;
+	//cout << myCanvas;
 }
 
 Game::Game(size_t numOfBombs)
 {
 	myCanvas = Canvas(numOfBombs);
-	cout << myCanvas;
+	//cout << myCanvas;
 }
 
 Game::Game(size_t width, size_t length)
 {
 	myCanvas = Canvas(width, length);
-	cout << myCanvas;
+	//cout << myCanvas;
 }
 
 Game::Game(size_t width, size_t length, size_t numOfBombs)
@@ -349,17 +362,30 @@ void Game::selectTile(size_t x, size_t y)
 		{
 			activeGame = false;
 			cout << "You hit a bomb, sorry! Try again.\n";
+			cout << myCanvas;
+		}
+		else if (myCanvas.flipTileCount() == 
+			myCanvas.getWidth() * myCanvas.getLength() - myCanvas.getNumOfBombs())
+		{
+			activeGame = false;
+			cout << myCanvas;
+			cout << "You have uncovered all available tiles! You win the game!" << endl;
 		}
 	}
 	else
 	{
 		cerr << "Game is already over!\n";
 	}
-	cout << myCanvas << endl;
+	//cout << myCanvas << endl;
 }
 
 void Game::markAsBomb(size_t x, size_t y)
 {
 	myCanvas.markTileBomb(x, y);
-	cout << myCanvas;
+	//cout << myCanvas;
+}
+
+bool Game::isGameActive()
+{
+	return activeGame;
 }

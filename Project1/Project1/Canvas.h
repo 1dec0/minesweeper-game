@@ -35,6 +35,11 @@ public:
 
 	Canvas& operator=(const Canvas& c); //assignment operator
 
+	int getWidth() { return width; }
+	int getLength() { return length; }
+	int getNumOfBombs() { return numOfBombs; }
+
+	int flipTileCount() { return flippedTiles; };
 	char flipTile(int x, int y);
 	bool checkTileFlipped(int x, int y);
 	void markTileBomb(int x, int y);
@@ -47,6 +52,10 @@ private:
 	size_t width;
 	size_t length;
 	size_t numOfBombs;
+
+
+	size_t tileCount = width * length;
+	size_t flippedTiles = 0;
 	
 	Tile ** board;	
 };
@@ -61,6 +70,9 @@ public:
 
 	void selectTile(size_t x, size_t y);
 	void markAsBomb(size_t x, size_t y);
+	bool isGameActive();
+
+	friend std::ostream& operator<<(std::ostream& out, const Game& myGame);
 
 private:
 	Canvas myCanvas;

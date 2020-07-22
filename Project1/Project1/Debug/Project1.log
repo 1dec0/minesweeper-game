@@ -1,5 +1,5 @@
 ﻿  Canvas.cpp
-C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(166,22): warning C4018: '<': signed/unsigned mismatch
 C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(167,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(224,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(168,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(231,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
   Project1.vcxproj -> C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Debug\Project1.exe
