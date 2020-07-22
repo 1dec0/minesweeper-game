@@ -5,50 +5,7 @@
 using namespace std;
 
 int main()
-{
-	/*Game myGame(10, 50, 10);
-	for (int i = 0; i < 10; ++i)
-	{
-		for (int j = 0; j < 10; ++j)
-		{
-			cout << "i: " << i << ", j: " << j << endl;
-			myGame.selectTile(i, j);
-			cout << myGame << endl;
-			if (!myGame.isGameActive())
-				break;
-		}
-	}
-
-	const int length = 10;
-	const int width = 20;
-	int* arr[width];
-	for (size_t i = 0; i < width; ++i)
-	{
-		arr[i] = new int[length];
-	}
- 
-	int a = 0;
-	for (size_t i = 0; i < length; ++i)
-	{
-		for (size_t j = 0; j < width; ++j)
-		{
-			arr[j][i] = ++a;
-		}
-	}
-
-	for (size_t i = 0; i < length; ++i)
-	{
-		for (size_t j = 0; j < width; ++j)
-		{
-			cout << ' ' << arr[j][i];
-		}
-		cout << endl;
-	}
-	cout << arr[5][9];
-	*/
-	
-
-	//This is my actual main code
+{		
 	cout << "Enter the width of the board (if the value entered is less than 10, 10 will be used as default): ";
 	int width;
 	cin >> width;	
@@ -77,7 +34,6 @@ int main()
 		cout << "Inputs:" << endl;
 		cout << "1: Flip selected tile" << endl;
 		cout << "2: Mark selected tile as bomb" << endl;
-		//cout << "Enter -1 to cancel decision" << endl;
 			
 		cout << "Enter your decision: ";
 		cin >> input;
@@ -124,65 +80,6 @@ int main()
 			cout << "That input was invalid. Please try again." << endl;
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*int counter = 0;
-	int result = 0;
-	while (counter < 100 && result != 10)
-	{
-		result = rand() % 10;
-		cout << result << endl;
-		++counter;
-	}
-	
-	char a = '0';
-	char b = a + 1;
-	cout << "a = " << a << ", b = " << b << '\n';
-
-	int x = 10;
-	bool left = x - 1 >= 0;
-
-	cout << "x = " << x << ", left = " << left << '\n';
-
-	Canvas myCanvas;
-	//Canvas mySecondCanvas(myCanvas);
-
-	cout << myCanvas << endl;
-
-	Canvas secondCanvas;
-	secondCanvas = myCanvas;
-
-	cout << secondCanvas << endl;
-
-	Tile firstTile(1, 2, '3');
-	Tile secondTile = firstTile;
-
-	cout << firstTile.getValue() << secondTile.getValue() << endl;
-
-	//Canvas myCanvas;
-	//Canvas secondCanvas(myCanvas);
-	//cout << myCanvas << secondCanvas;
-
-	Game newGame;
-	newGame.markAsBomb(0, 0);
-	newGame.selectTile(0, 0);
-	for (size_t i = 0; i < 10; ++i)
-	{
-		for (size_t j = 0; j < 10; ++j)
-		{
-			newGame.selectTile(i, j);
-		}
-	}*/
-
-
 
 	system("pause");
 	return 0;

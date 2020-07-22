@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Tile::Tile(char value) //Probably won't be used, can probably be deleted
+Tile::Tile(char value) 
 {
 	this->value = value;
 }
@@ -32,7 +32,6 @@ void Tile::setValue(char value)
 /*
  * Returns value, or 'X' if already flipped
  */
-
 char Tile::flip()
 {
 	if (!flipped)
@@ -56,8 +55,6 @@ char Tile::getFlipped()
 
 
 //-------------------------------------------------------------------
-
-
 
 Canvas::Canvas()
 {
@@ -95,7 +92,7 @@ Canvas::Canvas(size_t width, size_t length, size_t numOfBombs)
 	initialize();
 }
 
-Canvas::Canvas(const Canvas& other) //done
+Canvas::Canvas(const Canvas& other) 
 {
 	this->width = other.width;
 	this->length = other.length;
@@ -113,12 +110,11 @@ Canvas::Canvas(const Canvas& other) //done
 	}
 }
 
-Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized better, go look at other code
+Canvas& Canvas::operator=(const Canvas& c) 
 {
 	for (size_t i = 0; i < width; ++i)
 	{
-		delete[] board[i]; //This
-		//board[i] = nullptr;
+		delete[] board[i]; 
 	}
 	delete[] board;
 
@@ -137,7 +133,6 @@ Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized
 		for (size_t j = 0; j < length; ++j)
 		{
 			this->board[i][j] = c.board[i][j];
-			//cout << this->board[i][j].getValue() << c.board[i][j].getValue();
 		}
 	}
 
@@ -148,13 +143,10 @@ Canvas& Canvas::operator=(const Canvas& c) //I feel like this could be optimized
 /*
  * Returns value of board[x][y]
  */
-
 char Canvas::flipTile(int x, int y)
 {	
 	 char value = board[x][y].flip();
 	 ++flippedTiles;
-
-	 //cout << "x, y, width, legnth: " << x << y << width << length << '\n';
 
 	 if (value == '0')
 	 {
@@ -189,35 +181,23 @@ void Canvas::markTileBomb(int x, int y)
 	board[x][y].setMarked('b');
 }
 
-Canvas::~Canvas() //Finished
+Canvas::~Canvas() 
 {
 	for (size_t i = 0; i < width; ++i)
 	{
-		delete[] board[i]; //This
-		//board[i] = nullptr;
+		delete[] board[i]; 
 	}
 	delete[] board;
-	//board = nullptr;
 }
 
-void Canvas::initialize() //helper function for constructors
+void Canvas::initialize() 
 {
 	board = new Tile * [width];
 
 	for (size_t i = 0; i < width; ++i)
 	{
 		board[i] = new Tile[length]; //defaulted with value=0
-	}
-
-	//cout << *this; //temporary
-
-	/*for (size_t i = 0; i < width; ++i) //useless code???
-	{
-		for (size_t j = 0; j < length; ++j)
-		{
-			board[i][j] = Tile(i, j); //new Tile(i, j);???
-		}
-	}*/
+	}	
 
 	size_t tiles = length * width;
 	if (numOfBombs >= tiles)
@@ -234,16 +214,12 @@ void Canvas::initialize() //helper function for constructors
 		int x = int(rand() % width);
 		int y = int(rand() % length);
 
-		//cout << "Current x & y" << x << ' ' << y << endl;
-
 		if (board[x][y].getValue() != 'B')
 		{
 			++assignedBombs;
 			board[x][y].setValue('B');
-
-
+			
 			//update surrounding tiles
-
 			bool left = x >= 1;
 			bool right = x + 1 < int(width);
 			bool up = y >= 1;
@@ -251,66 +227,50 @@ void Canvas::initialize() //helper function for constructors
 
 			if (left && board[x - 1][y].getValue() != 'B') //left
 			{
-				//cout << "left" << endl;
 				board[x - 1][y].setValue(board[x - 1][y].getValue() + 1);
-				//cout << *this;
 			}
 			if (up && board[x][y - 1].getValue() != 'B') //up
 			{
-				//cout << "up" << endl;
 				board[x][y - 1].setValue(board[x][y - 1].getValue() + 1);
-				//cout << *this;
 			}
 			if (up && left && board[x - 1][y - 1].getValue() != 'B') //up-left
 			{
-				//cout << "up-left" << endl;
 				board[x - 1][y - 1].setValue(board[x - 1][y - 1].getValue() + 1);
-				//cout << *this;
 			}
 			if (right && board[x + 1][y].getValue() != 'B') //right
 			{
-				//cout << "right" << endl;
 				board[x + 1][y].setValue(board[x + 1][y].getValue() + 1);
-				//cout << *this;
 			}
 			if (right && down && board[x + 1][y + 1].getValue() != 'B') //right-down
 			{
-				//cout << "right-down" << endl;
 				board[x + 1][y + 1].setValue(board[x + 1][y + 1].getValue() + 1);
-				//cout << *this;
 			}
 			if (left && down && board[x - 1][y + 1].getValue() != 'B') //left-down
 			{
-				//cout << "left-down" << endl;
 				board[x - 1][y + 1].setValue(board[x - 1][y + 1].getValue() + 1);
-				//cout << *this;
 			}
 			if (down && board[x][y + 1].getValue() != 'B') //down
 			{
-				//cout << "left" << endl;
 				board[x][y + 1].setValue(board[x][y + 1].getValue() + 1);
-				//cout << *this;
 			}
 			if (right && up && board[x + 1][y - 1].getValue() != 'B') //right-up?
 			{
-				//cout << "right-up" << endl;
 				board[x + 1][y - 1].setValue(board[x + 1][y - 1].getValue() + 1);
-				//cout << *this;
 			}
 		}
 	}
 }
 
-std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas) //Finished
+std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas) 
 {
 	out << string(myCanvas.width * 2 + 1, '=') << '\n'; //border
-	//out << "test";
+
 	for (size_t i = 0; i < myCanvas.length; ++i)
 	{
 		out << ' ';
 		for (size_t j = 0; j < myCanvas.width; ++j)
 		{
-			//out << myCanvas.board[i][j].getValue() << ' '; //for testing
+			//out << myCanvas.board[i][j].getValue() << ' '; //for testing purposes
 			out << myCanvas.board[j][i].getMarked() << ' ';
 		}
 		out << '\n';
@@ -321,31 +281,18 @@ std::ostream& operator<<(std::ostream& out, const Canvas& myCanvas) //Finished
 	return out;
 }
 
-std::ostream& operator<<(std::ostream& out, const Game& myGame)
-{
-	out << myGame.myCanvas;
-	return out;
-}
 
 
 //-------------------------------------------------------------------
 
-
-Game::Game()
-{
-	//cout << myCanvas;
-}
-
 Game::Game(size_t numOfBombs)
 {
 	myCanvas = Canvas(numOfBombs);
-	//cout << myCanvas;
 }
 
 Game::Game(size_t width, size_t length)
 {
 	myCanvas = Canvas(width, length);
-	//cout << myCanvas;
 }
 
 Game::Game(size_t width, size_t length, size_t numOfBombs)
@@ -376,16 +323,20 @@ void Game::selectTile(size_t x, size_t y)
 	{
 		cerr << "Game is already over!\n";
 	}
-	//cout << myCanvas << endl;
 }
 
 void Game::markAsBomb(size_t x, size_t y)
 {
 	myCanvas.markTileBomb(x, y);
-	//cout << myCanvas;
 }
 
 bool Game::isGameActive()
 {
 	return activeGame;
+}
+
+std::ostream& operator<<(std::ostream& out, const Game& myGame)
+{
+	out << myGame.myCanvas;
+	return out;
 }

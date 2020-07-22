@@ -1,5 +1,11 @@
 ﻿  Canvas.cpp
-C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(167,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(168,22): warning C4018: '<': signed/unsigned mismatch
-C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(231,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(162,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(163,22): warning C4018: '<': signed/unsigned mismatch
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Canvas.cpp(214,12): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Main.cpp
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Main.cpp(94,28): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Main.cpp(94,42): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Main.cpp(113,28): warning C4018: '>=': signed/unsigned mismatch
+C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Project1\Main.cpp(113,42): warning C4018: '>=': signed/unsigned mismatch
+  Generating Code...
   Project1.vcxproj -> C:\Users\madis\OneDrive\Desktop\Repositories\minesweeper-game\Project1\Debug\Project1.exe

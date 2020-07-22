@@ -52,9 +52,7 @@ private:
 	size_t width;
 	size_t length;
 	size_t numOfBombs;
-
-
-	size_t tileCount = width * length;
+	
 	size_t flippedTiles = 0;
 	
 	Tile ** board;	
@@ -63,7 +61,7 @@ private:
 class Game
 {
 public:
-	Game();
+	Game() { myCanvas = Canvas(); }
 	Game(size_t numOfBombs);
 	Game(size_t width, size_t length);
 	Game(size_t width, size_t length, size_t numOfBombs);
